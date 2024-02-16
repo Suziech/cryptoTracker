@@ -51,6 +51,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
 body {
 
   font-family: "Open Sans", sans-serif;
@@ -66,6 +70,7 @@ body {
 
 a {
    text-decoration: none;
+   color: inherit;
 }
 `;
 

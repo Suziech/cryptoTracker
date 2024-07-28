@@ -25,3 +25,8 @@ root.render(
     </QueryClientProvider>
   </div>
 );
+
+//코드챌린지
+//1. make a back button
+//2. make something cool on price tab
+//3. change chart to candlestick style

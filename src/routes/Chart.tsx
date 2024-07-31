@@ -16,23 +16,34 @@ interface IHistorical {
 interface ChartProps {
   coinId: string;
 }
+
+interface ApexCandlestickSeries {
+  x: Date;
+  y: [number, number, number, number];
+}
 function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>({
     queryKey: ["ohlcv", coinId],
     queryFn: () => fetchCoinHistory(coinId),
   });
   console.log(isLoading, data, coinId);
+
+  const seriesData: ApexCandlestickSeries[] | undefined = data?.map((price) => ({
+    x: new Date(price.time_open * 1000), // Assuming time_open is in seconds, convert to milliseconds
+    y: [price.open, price.high, price.low, price.close],
+  }));
+
   return (
     <div>
       {isLoading ? (
         "Loadiing chart..."
       ) : (
         <ApexCharts
-          type='line'
+          type='candlestick'
           series={[
             {
               name: "Price",
-              data: data?.map((price) => price.close) as number[],
+              data: seriesData || []
             },
           ]}
           options={{

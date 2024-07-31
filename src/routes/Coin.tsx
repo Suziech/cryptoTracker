@@ -6,6 +6,7 @@ import {
   Route,
   Link,
   useRouteMatch,
+  useHistory
 } from "react-router-dom";
 import styled from "styled-components";
 import Price from "./Price";
@@ -13,6 +14,7 @@ import Chart from "./Chart";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "./api";
 import { Helmet } from "react-helmet";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 interface RouteParams {
   coinId: string;
@@ -33,6 +35,18 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
 `;
+
+const Button = styled.div`
+position: absolute;
+top: 10px;
+cursor: pointer;
+font-size: 25px;
+
+&:hover {
+  color: #f73d5c;
+}
+`;
+
 
 const Overview = styled.div`
   display: flex;
@@ -151,7 +165,7 @@ function Coin() {
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price");
   const chartMatch = useRouteMatch("/:coinId/chart");
-  //
+  const history = useHistory();
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>({
     queryKey: ["info", coinId],
     queryFn: () => fetchCoinInfo(coinId),
@@ -165,6 +179,10 @@ function Coin() {
 
   const loading = infoLoading || tickersLoading;
 
+  const handleGoHome = () => {
+    history.push('/')
+  };
+
   return (
     <Container>
       <Helmet>
@@ -177,6 +195,7 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+      <Button onClick={handleGoHome}><RiArrowGoBackFill /></Button>
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (

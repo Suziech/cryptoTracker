@@ -18,8 +18,9 @@ const Header = styled.header`
 `;
 const CoinsList = styled.ul``;
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.$bgColor};
+  border: 1px solid white;
+  background-color: ${(props) => props.theme.$bgColor};
+  color: ${(props) => props.theme.$textColor};
 
   border-radius: 15px;
   margin-bottom: 10px;
@@ -85,10 +86,11 @@ function Coins() {
                 to={{
                   pathname: `/${coin.id}`,
                   state: { name: coin.name },
-                }}>
+                }}
+              >
                 {" "}
                 <Img
-                  src={`https://cryptoicon-api.pages.dev/${coin.symbol.toLocaleLowerCase()}`}
+                  src={`https://cryptoicon-api.pages.dev/api/icon/${coin.symbol.toLocaleLowerCase()}`}
                 />
                 {coin.name} &rarr;{" "}
               </Link>

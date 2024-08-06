@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
@@ -78,23 +80,12 @@ a {
 }
 `;
 
-const ToggleButton = styled.button`
-
-`;
 
 function App() {
-
-  const [isDark, setIsDark] = useState(false)
-
-  const toggleDark = () => {
-    setIsDark((currnet) => !currnet)
-  }
+  const isDark = useRecoilValue(isDarkAtom)
   return (
     <>
-      <ThemeProvider theme={isDark? darkTheme : lightTheme}>
-        <ToggleButton onClick={toggleDark}>
-          {isDark ? 'Light Mode': 'Dark Mode'}
-        </ToggleButton>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
         <Router />
         <ReactQueryDevtools initialIsOpen={true} />

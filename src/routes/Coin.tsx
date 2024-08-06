@@ -38,7 +38,8 @@ const Header = styled.header`
 
 const Button = styled.div`
 position: absolute;
-top: 10px;
+top: 20px;
+right: 10px;
 cursor: pointer;
 font-size: 25px;
 

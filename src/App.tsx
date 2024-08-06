@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isDarkAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
@@ -80,13 +80,35 @@ a {
 }
 `;
 
+interface IToggleButtonProps {
+  isDark: boolean;
+}
+
+const ToggleButton = styled.button<IToggleButtonProps>`
+  height: 30px;
+  border-radius: 30px;
+  border: 1px solid #00252f;
+ margin : 10px 0 0 10px;
+ font-size: 15px;
+ font-weight: bold;
+ cursor: pointer;
+
+ &:hover {
+  background: ${(props) => (props.isDark ? '#99d7e6' : '#00252f')};
+  color: ${(props)=>(props.isDark ? 'black' : 'white')}
+ }
+`
 
 function App() {
   const isDark = useRecoilValue(isDarkAtom)
+  const setDarkAtom = useSetRecoilState(isDarkAtom)
+  const toggleDarkAtom = () => setDarkAtom(prev => !prev)
+
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
+        <ToggleButton isDark={isDark} onClick={toggleDarkAtom}>{isDark ? 'Light Mode 🌞':'Dark Mode 🌙'}</ToggleButton>
         <Router />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>

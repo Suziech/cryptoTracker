@@ -17,6 +17,7 @@
     "ag-grid-community": "^32.0.2",
     "ag-grid-react": "^32.0.2",
     "apexcharts": "^3.47.0",
+    "gh-pages": "^6.1.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
@@ -32,7 +33,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -63,5 +66,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.34",
     "typescript": "^5.5.4"
-  }
+  },
+  "homepage" : "https://Suziech.github.io/cryptoTracker"
 }

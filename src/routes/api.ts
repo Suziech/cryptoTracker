@@ -22,6 +22,6 @@ export function fetchCoinTickers(coinId: string) {
 
 export function fetchCoinHistory(coinId: string) {
   return fetch(
-    `http://ohlcv-api.nomadcoders.workers.dev?coinId=${coinId}`
+    `https://ohlcv-api.nomadcoders.workers.dev?coinId=${coinId}`
   ).then((res) => res.json());
 }

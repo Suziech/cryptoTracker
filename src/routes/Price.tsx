@@ -22,26 +22,26 @@ interface PriceProps {
 }
 
 function Price({ coinId }: PriceProps) {
-  const [rowData, setRowData] = useState([
-    { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-    { make: "Ford", model: "F-Series", price: 33850, electric: false,  },
-    { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-  ]);
+  // const [rowData, setRowData] = useState([
+  //   { make: "Tesla", model: "Model Y", price: 64950, electric: true },
+  //   { make: "Ford", model: "F-Series", price: 33850, electric: false,  },
+  //   { make: "Toyota", model: "Corolla", price: 29600, electric: false },
+  // ]);
 
-  // Column Definitions
-  const [colDefs] = useState<ColDef[]>([ // ColDef 타입 지정
-    { field: "open", flex:0.25 },
-    { field: "close", flex:0.25 },
-    { field: "high", flex: 0.25},
-    { field: "low", flex: 0.25}
-  ]);
+  // // Column Definitions
+  // const [colDefs] = useState<ColDef[]>([ // ColDef 타입 지정
+  //   { field: "open", flex:0.25 },
+  //   { field: "close", flex:0.25 },
+  //   { field: "high", flex: 0.25},
+  //   { field: "low", flex: 0.25}
+  // ]);
 
-  const { isLoading, data } = useQuery<IHistorical[]>({
-    queryKey: ["ohlcv", coinId],
-    queryFn: () => fetchCoinHistory(coinId),
-  });
+  // const { isLoading, data } = useQuery<IHistorical[]>({
+  //   queryKey: ["ohlcv", coinId],
+  //   queryFn: () => fetchCoinHistory(coinId),
+  // });
 
-  console.log('data', data)
+  // console.log('data', data)
 
   return (
 <div className="ag-theme-quartz" style={{ height: "500px", width: "100%" }}>

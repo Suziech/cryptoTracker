@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoinHistory } from "./api";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import { ColDef } from "ag-grid-community"; // ColDef 가져오기
+import { ColDef } from "ag-grid-community";
 
 interface IHistorical {
   time_open: number;
@@ -22,34 +22,37 @@ interface PriceProps {
 }
 
 function Price({ coinId }: PriceProps) {
-  const [rowData, setRowData] = useState([
-    { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-    { make: "Ford", model: "F-Series", price: 33850, electric: false,  },
-    { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-  ]);
-
-  // Column Definitions
-  const [colDefs] = useState<ColDef[]>([ // ColDef 타입 지정
-    { field: "open", flex:0.25 },
-    { field: "close", flex:0.25 },
-    { field: "high", flex: 0.25},
-    { field: "low", flex: 0.25}
-  ]);
-
-  const { isLoading, data } = useQuery<IHistorical[]>({
+  const { isLoading, error, data } = useQuery<IHistorical[]>({
     queryKey: ["ohlcv", coinId],
     queryFn: () => fetchCoinHistory(coinId),
   });
 
-  console.log('data', data)
+  const [colDefs] = useState<ColDef[]>([
+    { field: "time_open", headerName: "Open Time", flex: 0.25 },
+    { field: "time_close", headerName: "Close Time", flex: 0.25 },
+    { field: "open", headerName: "Open", flex: 0.25 },
+    { field: "close", headerName: "Close", flex: 0.25 },
+    { field: "high", headerName: "High", flex: 0.25 },
+    { field: "low", headerName: "Low", flex: 0.25 },
+    { field: "volume", headerName: "Volume", flex: 0.25 },
+    { field: "market_cap", headerName: "Market Cap", flex: 0.25 }
+  ]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching data</div>;
+  }
 
   return (
-<div className="ag-theme-quartz" style={{ height: "500px", width: "100%" }}>
-  <AgGridReact
-    rowData={data}
-    columnDefs={colDefs}
-  />
-</div>
+    <div className="ag-theme-quartz" style={{ height: "500px", width: "100%" }}>
+      <AgGridReact
+        rowData={data}
+        columnDefs={colDefs}
+      />
+    </div>
   );
 }
 

@@ -28,14 +28,11 @@ function Price({ coinId }: PriceProps) {
   });
 
   const [colDefs] = useState<ColDef[]>([
-    { field: "time_open", headerName: "Open Time", flex: 0.25 },
-    { field: "time_close", headerName: "Close Time", flex: 0.25 },
     { field: "open", headerName: "Open", flex: 0.25 },
     { field: "close", headerName: "Close", flex: 0.25 },
     { field: "high", headerName: "High", flex: 0.25 },
     { field: "low", headerName: "Low", flex: 0.25 },
-    { field: "volume", headerName: "Volume", flex: 0.25 },
-    { field: "market_cap", headerName: "Market Cap", flex: 0.25 }
+
   ]);
 
   if (isLoading) {
